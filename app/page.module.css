@@ -1,0 +1,57 @@
+.main {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40px;
+}
+
+.header {
+  background: #2E7D32;
+  color: white;
+  padding: 24px 20px 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  background: white;
+  border-bottom: 2px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.tabActive {
+  color: #2E7D32;
+  border-bottom: 3px solid #2E7D32;
+  margin-bottom: -2px;
+}
+
+.content {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
