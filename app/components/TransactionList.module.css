@@ -1,123 +1,50 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+.container { display: flex; flex-direction: column; gap: 16px; }
+.loading { text-align: center; padding: 40px; color: #999; }
 
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #999;
-}
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.summaryCard { background: white; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.summaryLabel { font-size: 11px; color: #888; margin: 0 0 4px; }
+.summaryAmount { font-size: 16px; font-weight: 700; color: #2E7D32; margin: 0; }
 
-.summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
+.errorMsg { background: #FFEBEE; color: #C62828; padding: 10px 14px; border-radius: 8px; font-size: 13px; }
 
-.summaryCard {
-  background: white;
-  border-radius: 10px;
-  padding: 12px;
-  text-align: center;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-}
+.listHeader { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #666; }
+.refreshButton { background: none; border: 1px solid #e0e0e0; border-radius: 6px; padding: 4px 12px; font-size: 12px; cursor: pointer; color: #555; }
+.empty { text-align: center; color: #bbb; padding: 40px; }
 
-.summaryLabel {
-  font-size: 11px;
-  color: #888;
-  margin: 0 0 4px;
-}
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 
-.summaryAmount {
-  font-size: 16px;
-  font-weight: 700;
-  color: #2E7D32;
-  margin: 0;
-}
+.item { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 
-.listHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  color: #666;
-}
+.itemLeft { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 0; }
+.itemRight { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
 
-.refreshButton {
-  background: none;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 4px 12px;
-  font-size: 12px;
-  cursor: pointer;
-  color: #555;
-}
+.categoryBadge { color: white; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+.storeName { font-size: 15px; font-weight: 600; margin: 0 0 2px; color: #222; }
+.itemMeta { font-size: 11px; color: #999; margin: 0 0 2px; }
+.itemDates { font-size: 11px; color: #aaa; margin: 0; display: flex; flex-direction: column; gap: 1px; }
+.registeredDate { font-size: 10px; color: #bbb; }
 
-.empty {
-  text-align: center;
-  color: #bbb;
-  padding: 40px;
-}
+.amount { font-size: 16px; font-weight: 700; color: #333; margin: 0; }
+.actionButtons { display: flex; gap: 6px; }
+.editBtn { background: #E3F2FD; color: #1565C0; border: none; border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer; font-weight: 600; }
+.deleteBtn { background: #FFEBEE; color: #C62828; border: none; border-radius: 6px; padding: 4px 10px; font-size: 12px; cursor: pointer; font-weight: 600; }
 
-.list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.editForm { display: flex; flex-direction: column; gap: 12px; }
+.editRow { display: flex; flex-direction: column; gap: 4px; }
+.editLabel { font-size: 12px; font-weight: 600; color: #555; }
+.editInput { padding: 8px 12px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; outline: none; }
+.editInput:focus { border-color: #2E7D32; }
+.editChips { display: flex; flex-wrap: wrap; gap: 6px; }
+.editChip { padding: 5px 12px; border: 1.5px solid #e0e0e0; border-radius: 16px; background: white; font-size: 13px; cursor: pointer; color: #555; }
+.editChipActive { border-color: #2E7D32; background: #2E7D32; color: white; }
+.editButtons { display: flex; gap: 8px; margin-top: 4px; }
+.saveBtn { flex: 1; background: #2E7D32; color: white; border: none; border-radius: 8px; padding: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }
+.cancelBtn { background: white; color: #999; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 16px; font-size: 14px; cursor: pointer; }
 
-.item {
-  background: white;
-  border-radius: 10px;
-  padding: 14px;
+/* 履歴アイテムをflexboxで整える */
+.item > div:first-child:not(.editForm) {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-}
-
-.itemLeft {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
-}
-
-.categoryBadge {
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 12px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.storeName {
-  font-size: 15px;
-  font-weight: 600;
-  margin: 0 0 2px;
-  color: #222;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.itemMeta {
-  font-size: 11px;
-  color: #999;
-  margin: 0;
-}
-
-.amount {
-  font-size: 16px;
-  font-weight: 700;
-  color: #333;
-  margin: 0;
-  flex-shrink: 0;
+  align-items: flex-start;
 }
