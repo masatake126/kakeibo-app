@@ -1,0 +1,113 @@
+.container { display: flex; flex-direction: column; gap: 16px; }
+
+.heading { font-size: 18px; font-weight: 700; color: #2E7D32; margin: 0; }
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardDesc { font-size: 12px; color: #999; margin: -4px 0 0; }
+
+.period { font-size: 12px; font-weight: 400; color: #999; }
+
+.dateRow { display: flex; align-items: center; gap: 8px; }
+.dateField { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.dateLabel { font-size: 12px; color: #888; font-weight: 600; }
+.dateInput {
+  padding: 10px 10px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: white;
+  color: #333;
+}
+.dateInput:focus { border-color: #2E7D32; }
+.dateSep { font-size: 16px; color: #999; padding-top: 20px; flex-shrink: 0; }
+
+.quickBtns { display: flex; gap: 8px; }
+.quickBtn {
+  flex: 1;
+  padding: 8px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  font-weight: 600;
+}
+.quickBtn:active { background: #f5f5f5; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 7px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 20px;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+  color: #555;
+}
+.chipExcluded {
+  border-color: #ef9a9a;
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.totalRow { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f5f5f5; }
+.totalRow:last-child { border-bottom: none; }
+.totalLabel { font-size: 14px; color: #666; }
+.totalAmount { font-size: 16px; font-weight: 700; color: #2E7D32; }
+
+.settlementRow { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+.settlementRow:last-child { border-bottom: none; }
+.settlementLeft { display: flex; flex-direction: column; gap: 2px; }
+.settlementName { font-size: 15px; font-weight: 600; color: #333; }
+.settlementPaid { font-size: 12px; color: #999; }
+.settlementDiff { font-size: 16px; font-weight: 700; }
+.diffPlus { color: #2E7D32; }
+.diffMinus { color: #e53935; }
+
+.transferRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #FFF8E1;
+  border-radius: 10px;
+  padding: 14px;
+}
+.transferFrom { font-size: 15px; font-weight: 700; color: #e53935; flex: 1; text-align: right; }
+.transferArrow { font-size: 18px; color: #888; flex-shrink: 0; }
+.transferTo { font-size: 15px; font-weight: 700; color: #2E7D32; flex: 1; }
+.transferAmount { font-size: 17px; font-weight: 800; color: #333; }
+
+.evenCard {
+  background: #E8F5E9;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2E7D32;
+}

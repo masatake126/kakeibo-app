@@ -5,6 +5,8 @@ import { supabase } from '../lib/supabase'
 import TransactionForm from './components/TransactionForm'
 import TransactionList from './components/TransactionList'
 import Statistics from './components/Statistics'
+import Split from './components/Split'
+import Recurring from './components/Recurring'
 import Settings from './components/Settings'
 import styles from './page.module.css'
 
@@ -44,10 +46,12 @@ export default function Home() {
   if (!settings) return null
 
   const tabs = [
-    { id: 'form', label: '＋ 追加' },
-    { id: 'list', label: '📋 履歴' },
-    { id: 'stats', label: '📊 統計' },
-    { id: 'settings', label: '⚙️ 設定' },
+    { id: 'form',      label: '＋ 追加' },
+    { id: 'list',      label: '📋 履歴' },
+    { id: 'stats',     label: '📊 統計' },
+    { id: 'split',     label: '💸 割り勘' },
+    { id: 'recurring', label: '🔁 固定費' },
+    { id: 'settings',  label: '⚙️ 設定' },
   ]
 
   return (
@@ -66,10 +70,12 @@ export default function Home() {
       </div>
 
       <div className={styles.content}>
-        {activeTab === 'form' && <TransactionForm settings={settings} onSaved={() => { fetchTransactions(); setActiveTab('list') }} />}
-        {activeTab === 'list' && <TransactionList transactions={transactions} loading={loading} onRefresh={fetchTransactions} settings={settings} />}
-        {activeTab === 'stats' && <Statistics transactions={transactions} settings={settings} />}
-        {activeTab === 'settings' && <Settings settings={settings} onSave={saveSettings} defaultSettings={defaultSettings} />}
+        {activeTab === 'form'      && <TransactionForm settings={settings} onSaved={() => { fetchTransactions(); setActiveTab('list') }} />}
+        {activeTab === 'list'      && <TransactionList transactions={transactions} loading={loading} onRefresh={fetchTransactions} settings={settings} />}
+        {activeTab === 'stats'     && <Statistics transactions={transactions} settings={settings} />}
+        {activeTab === 'split'     && <Split transactions={transactions} settings={settings} />}
+        {activeTab === 'recurring' && <Recurring transactions={transactions} settings={settings} onRefresh={fetchTransactions} />}
+        {activeTab === 'settings'  && <Settings settings={settings} onSave={saveSettings} defaultSettings={defaultSettings} />}
       </div>
     </main>
   )

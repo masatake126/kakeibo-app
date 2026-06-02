@@ -1,0 +1,49 @@
+.container { display: flex; flex-direction: column; gap: 16px; }
+.heading { font-size: 18px; font-weight: 700; color: #2E7D32; margin: 0; }
+.desc { font-size: 13px; color: #888; margin: -8px 0 0; }
+
+.message { padding: 12px 16px; border-radius: 8px; font-size: 14px; }
+.info { background: #E3F2FD; color: #1565C0; }
+.success { background: #E8F5E9; color: #2E7D32; }
+.error { background: #FFEBEE; color: #C62828; }
+
+.empty { background: white; border-radius: 12px; padding: 40px 20px; text-align: center; color: #bbb; font-size: 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.emptyDesc { font-size: 13px; margin-top: 8px; line-height: 1.6; }
+
+.registerAllBtn {
+  background: #2E7D32;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+}
+.registerAllBtn:disabled { opacity: 0.6; }
+
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.item {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.itemDone { opacity: 0.6; }
+
+.itemLeft { flex: 1; min-width: 0; }
+.itemTitleRow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.storeName { font-size: 15px; font-weight: 600; margin: 0 0 2px; color: #222; }
+.doneBadge { font-size: 11px; background: #E8F5E9; color: #2E7D32; border-radius: 10px; padding: 2px 8px; font-weight: 700; white-space: nowrap; }
+.itemMeta { font-size: 12px; color: #999; margin: 0 0 2px; }
+.memo { font-size: 12px; color: #666; margin: 0; background: #f9f9f9; border-radius: 6px; padding: 3px 8px; display: inline-block; }
+
+.itemRight { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.amount { font-size: 16px; font-weight: 700; color: #333; margin: 0; }
+.registerBtn { background: #E8F5E9; color: #2E7D32; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; cursor: pointer; font-weight: 700; }

@@ -13,6 +13,8 @@ export default function TransactionForm({ settings, onSaved }) {
     amount: '',
     category: '',
     paid_at: today,
+    memo: '',
+    is_recurring: false,
   })
   const [saving, setSaving] = useState(false)
   const [scanning, setScanning] = useState(false)
@@ -65,12 +67,14 @@ export default function TransactionForm({ settings, onSaved }) {
       amount: parseInt(form.amount),
       category: form.category,
       paid_at: new Date(form.paid_at).toISOString(),
+      memo: form.memo || null,
+      is_recurring: form.is_recurring,
     }])
     if (error) {
       setMessage({ type: 'error', text: '保存に失敗しました: ' + error.message })
     } else {
       setMessage({ type: 'success', text: '保存しました！' })
-      setForm({ paid_by: '', payment_method: '', store_name: '', amount: '', category: '', paid_at: today })
+      setForm({ paid_by: '', payment_method: '', store_name: '', amount: '', category: '', paid_at: today, memo: '', is_recurring: false })
       setTimeout(() => onSaved(), 800)
     }
     setSaving(false)
@@ -130,6 +134,31 @@ export default function TransactionForm({ settings, onSaved }) {
             <button key={c} className={`${styles.chip} ${form.category === c ? styles.chipActive : ''}`} onClick={() => handleChange('category', c)}>{c}</button>
           ))}
         </div>
+      </div>
+
+      <div className={styles.field}>
+        <label className={styles.label}>メモ（任意）</label>
+        <textarea
+          className={styles.textarea}
+          placeholder="例：誕生日プレゼント、セール品など"
+          value={form.memo}
+          onChange={e => handleChange('memo', e.target.value)}
+          rows={2}
+        />
+      </div>
+
+      <div className={styles.field}>
+        <button
+          className={`${styles.recurringToggle} ${form.is_recurring ? styles.recurringActive : ''}`}
+          onClick={() => handleChange('is_recurring', !form.is_recurring)}
+        >
+          <span className={styles.recurringIcon}>🔁</span>
+          <div className={styles.recurringText}>
+            <span className={styles.recurringLabel}>毎月の繰り返し支出</span>
+            <span className={styles.recurringDesc}>家賃・保険料・サブスクなど</span>
+          </div>
+          <span className={styles.recurringCheck}>{form.is_recurring ? '✓ ON' : 'OFF'}</span>
+        </button>
       </div>
 
       <button className={styles.submitButton} onClick={handleSubmit} disabled={saving}>

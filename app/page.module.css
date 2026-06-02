@@ -30,24 +30,29 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .tab {
   flex: 1;
-  padding: 14px;
+  padding: 12px 4px;
   border: none;
   background: transparent;
-  font-size: 14px;
-  color: #666;
+  font-size: 12px;
+  color: #888;
   cursor: pointer;
   transition: all 0.2s;
   font-weight: 500;
+  white-space: nowrap;
+  min-width: 60px;
 }
 
 .tabActive {
   color: #2E7D32;
   border-bottom: 3px solid #2E7D32;
   margin-bottom: -2px;
+  font-weight: 700;
 }
 
 .content {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { supabase } from '../../lib/supabase'
 import styles from './TransactionList.module.css'
 
@@ -14,16 +14,35 @@ export default function TransactionList({ transactions, loading, onRefresh, sett
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({})
   const [message, setMessage] = useState(null)
+  const [search, setSearch] = useState('')
+  const [filterPayer, setFilterPayer] = useState('全員')
+  const [filterCategory, setFilterCategory] = useState('全て')
+  const [showRecurringOnly, setShowRecurringOnly] = useState(false)
 
-  const total = transactions.reduce((sum, t) => sum + t.amount, 0)
-  const myTotal = transactions.filter(t => t.paid_by === (settings.payers[0] || '自分')).reduce((sum, t) => sum + t.amount, 0)
-  const partnerTotal = transactions.filter(t => t.paid_by === (settings.payers[1] || '奥さん')).reduce((sum, t) => sum + t.amount, 0)
+  const filtered = useMemo(() => {
+    return transactions.filter(t => {
+      const q = search.toLowerCase()
+      const matchSearch = !q ||
+        (t.store_name || '').toLowerCase().includes(q) ||
+        (t.memo || '').toLowerCase().includes(q) ||
+        t.category.toLowerCase().includes(q) ||
+        t.paid_by.toLowerCase().includes(q) ||
+        String(t.amount).includes(q)
+      const matchPayer = filterPayer === '全員' || t.paid_by === filterPayer
+      const matchCategory = filterCategory === '全て' || t.category === filterCategory
+      const matchRecurring = !showRecurringOnly || t.is_recurring
+      return matchSearch && matchPayer && matchCategory && matchRecurring
+    })
+  }, [transactions, search, filterPayer, filterCategory, showRecurringOnly])
+
+  const total = filtered.reduce((sum, t) => sum + t.amount, 0)
+  const myTotal = filtered.filter(t => t.paid_by === (settings.payers[0] || '自分')).reduce((sum, t) => sum + t.amount, 0)
+  const partnerTotal = filtered.filter(t => t.paid_by === (settings.payers[1] || '奥さん')).reduce((sum, t) => sum + t.amount, 0)
 
   const formatDate = (dateStr) => {
     const d = new Date(dateStr)
     return `${d.getMonth() + 1}/${d.getDate()}`
   }
-
   const formatDateTime = (dateStr) => {
     const d = new Date(dateStr)
     return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`
@@ -38,6 +57,8 @@ export default function TransactionList({ transactions, loading, onRefresh, sett
       amount: t.amount,
       category: t.category,
       paid_at: new Date(t.paid_at).toISOString().split('T')[0],
+      memo: t.memo || '',
+      is_recurring: t.is_recurring || false,
     })
   }
 
@@ -49,29 +70,56 @@ export default function TransactionList({ transactions, loading, onRefresh, sett
       amount: parseInt(editForm.amount),
       category: editForm.category,
       paid_at: new Date(editForm.paid_at).toISOString(),
+      memo: editForm.memo || null,
+      is_recurring: editForm.is_recurring,
     }).eq('id', id)
-    if (error) {
-      setMessage('更新に失敗しました')
-    } else {
-      setEditingId(null)
-      onRefresh()
-    }
+    if (error) { setMessage('更新に失敗しました') }
+    else { setEditingId(null); onRefresh() }
   }
 
   const deleteTransaction = async (id) => {
     if (!confirm('この支出を削除しますか？')) return
     const { error } = await supabase.from('transactions').delete().eq('id', id)
-    if (error) {
-      setMessage('削除に失敗しました')
-    } else {
-      onRefresh()
-    }
+    if (error) { setMessage('削除に失敗しました') }
+    else { onRefresh() }
   }
 
   if (loading) return <div className={styles.loading}>読み込み中...</div>
 
   return (
     <div className={styles.container}>
+      {/* 検索バー */}
+      <div className={styles.searchBar}>
+        <span className={styles.searchIcon}>🔍</span>
+        <input
+          className={styles.searchInput}
+          type="text"
+          placeholder="店名・メモ・用途・金額で検索"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+        {search && <button className={styles.clearBtn} onClick={() => setSearch('')}>✕</button>}
+      </div>
+
+      {/* フィルター */}
+      <div className={styles.filters}>
+        <div className={styles.filterRow}>
+          <select className={styles.filterSelect} value={filterPayer} onChange={e => setFilterPayer(e.target.value)}>
+            <option value="全員">全員</option>
+            {settings.payers.map(p => <option key={p} value={p}>{p}</option>)}
+          </select>
+          <select className={styles.filterSelect} value={filterCategory} onChange={e => setFilterCategory(e.target.value)}>
+            <option value="全て">全用途</option>
+            {settings.categories.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <button
+            className={`${styles.recurringFilter} ${showRecurringOnly ? styles.recurringFilterActive : ''}`}
+            onClick={() => setShowRecurringOnly(v => !v)}
+          >🔁 繰り返し</button>
+        </div>
+      </div>
+
+      {/* サマリー */}
       <div className={styles.summary}>
         <div className={styles.summaryCard}>
           <p className={styles.summaryLabel}>合計</p>
@@ -90,15 +138,15 @@ export default function TransactionList({ transactions, loading, onRefresh, sett
       {message && <div className={styles.errorMsg}>{message}</div>}
 
       <div className={styles.listHeader}>
-        <span>履歴（{transactions.length}件）</span>
+        <span>{filtered.length}件{search || filterPayer !== '全員' || filterCategory !== '全て' || showRecurringOnly ? '（絞り込み中）' : ''}</span>
         <button className={styles.refreshButton} onClick={onRefresh}>更新</button>
       </div>
 
-      {transactions.length === 0 ? (
-        <p className={styles.empty}>まだ支出がありません</p>
+      {filtered.length === 0 ? (
+        <p className={styles.empty}>{search ? '検索結果がありません' : 'まだ支出がありません'}</p>
       ) : (
         <ul className={styles.list}>
-          {transactions.map(t => (
+          {filtered.map(t => (
             <li key={t.id} className={styles.item}>
               {editingId === t.id ? (
                 <div className={styles.editForm}>
@@ -138,18 +186,32 @@ export default function TransactionList({ transactions, loading, onRefresh, sett
                       ))}
                     </div>
                   </div>
+                  <div className={styles.editRow}>
+                    <label className={styles.editLabel}>メモ</label>
+                    <textarea className={styles.editTextarea} value={editForm.memo} onChange={e => setEditForm(p => ({ ...p, memo: e.target.value }))} rows={2} />
+                  </div>
+                  <div className={styles.editRow}>
+                    <button
+                      className={`${styles.editRecurring} ${editForm.is_recurring ? styles.editRecurringActive : ''}`}
+                      onClick={() => setEditForm(p => ({ ...p, is_recurring: !p.is_recurring }))}
+                    >🔁 繰り返し支出　{editForm.is_recurring ? 'ON' : 'OFF'}</button>
+                  </div>
                   <div className={styles.editButtons}>
                     <button className={styles.saveBtn} onClick={() => saveEdit(t.id)}>保存</button>
                     <button className={styles.cancelBtn} onClick={() => setEditingId(null)}>キャンセル</button>
                   </div>
                 </div>
               ) : (
-                <>
+                <div className={styles.itemInner}>
                   <div className={styles.itemLeft}>
                     <span className={styles.categoryBadge} style={{ backgroundColor: CATEGORY_COLORS[t.category] || '#9E9E9E' }}>{t.category}</span>
-                    <div>
-                      <p className={styles.storeName}>{t.store_name || '店名なし'}</p>
+                    <div className={styles.itemContent}>
+                      <div className={styles.itemTitleRow}>
+                        <p className={styles.storeName}>{t.store_name || '店名なし'}</p>
+                        {t.is_recurring && <span className={styles.recurringBadge}>🔁</span>}
+                      </div>
                       <p className={styles.itemMeta}>{t.paid_by} · {t.payment_method}</p>
+                      {t.memo && <p className={styles.memo}>📝 {t.memo}</p>}
                       <p className={styles.itemDates}>
                         <span>支払日: {formatDate(t.paid_at)}</span>
                         <span className={styles.registeredDate}>登録: {formatDateTime(t.created_at)}</span>
@@ -163,7 +225,7 @@ export default function TransactionList({ transactions, loading, onRefresh, sett
                       <button className={styles.deleteBtn} onClick={() => deleteTransaction(t.id)}>削除</button>
                     </div>
                   </div>
-                </>
+                </div>
               )}
             </li>
           ))}
