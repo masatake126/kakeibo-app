@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import TransactionForm from './components/TransactionForm'
 import TransactionList from './components/TransactionList'
+import Statistics from './components/Statistics'
 import Settings from './components/Settings'
 import styles from './page.module.css'
 
@@ -21,11 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     const saved = localStorage.getItem('kakeibo-settings')
-    if (saved) {
-      setSettings(JSON.parse(saved))
-    } else {
-      setSettings(defaultSettings)
-    }
+    setSettings(saved ? JSON.parse(saved) : defaultSettings)
     fetchTransactions()
   }, [])
 
@@ -46,6 +43,13 @@ export default function Home() {
 
   if (!settings) return null
 
+  const tabs = [
+    { id: 'form', label: '＋ 追加' },
+    { id: 'list', label: '📋 履歴' },
+    { id: 'stats', label: '📊 統計' },
+    { id: 'settings', label: '⚙️ 設定' },
+  ]
+
   return (
     <main className={styles.main}>
       <header className={styles.header}>
@@ -54,21 +58,18 @@ export default function Home() {
       </header>
 
       <div className={styles.tabs}>
-        <button className={`${styles.tab} ${activeTab === 'form' ? styles.tabActive : ''}`} onClick={() => setActiveTab('form')}>＋ 支出追加</button>
-        <button className={`${styles.tab} ${activeTab === 'list' ? styles.tabActive : ''}`} onClick={() => setActiveTab('list')}>📋 履歴</button>
-        <button className={`${styles.tab} ${activeTab === 'settings' ? styles.tabActive : ''}`} onClick={() => setActiveTab('settings')}>⚙️ 設定</button>
+        {tabs.map(t => (
+          <button key={t.id} className={`${styles.tab} ${activeTab === t.id ? styles.tabActive : ''}`} onClick={() => setActiveTab(t.id)}>
+            {t.label}
+          </button>
+        ))}
       </div>
 
       <div className={styles.content}>
-        {activeTab === 'form' && (
-          <TransactionForm settings={settings} onSaved={() => { fetchTransactions(); setActiveTab('list') }} />
-        )}
-        {activeTab === 'list' && (
-          <TransactionList transactions={transactions} loading={loading} onRefresh={fetchTransactions} settings={settings} />
-        )}
-        {activeTab === 'settings' && (
-          <Settings settings={settings} onSave={saveSettings} defaultSettings={defaultSettings} />
-        )}
+        {activeTab === 'form' && <TransactionForm settings={settings} onSaved={() => { fetchTransactions(); setActiveTab('list') }} />}
+        {activeTab === 'list' && <TransactionList transactions={transactions} loading={loading} onRefresh={fetchTransactions} settings={settings} />}
+        {activeTab === 'stats' && <Statistics transactions={transactions} settings={settings} />}
+        {activeTab === 'settings' && <Settings settings={settings} onSave={saveSettings} defaultSettings={defaultSettings} />}
       </div>
     </main>
   )
