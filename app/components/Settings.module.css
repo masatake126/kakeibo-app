@@ -7,7 +7,7 @@
 .heading {
   font-size: 18px;
   font-weight: 700;
-  color: #2E7D32;
+  color: #D95F6B;
   margin: 0;
 }
 
@@ -85,11 +85,11 @@
 }
 
 .addInput:focus {
-  border-color: #2E7D32;
+  border-color: #D95F6B;
 }
 
 .addBtn {
-  background: #2E7D32;
+  background: #D95F6B;
   color: white;
   border: none;
   border-radius: 8px;
@@ -107,7 +107,7 @@
 
 .saveBtn {
   flex: 1;
-  background: #2E7D32;
+  background: #D95F6B;
   color: white;
   border: none;
   border-radius: 10px;

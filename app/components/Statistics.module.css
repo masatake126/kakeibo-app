@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: center;
 }
-.monthLabel { font-size: 18px; font-weight: 700; color: #2E7D32; min-width: 120px; text-align: center; }
+.monthLabel { font-size: 18px; font-weight: 700; color: #D95F6B; min-width: 120px; text-align: center; }
 
 .payerFilter { display: flex; gap: 8px; flex-wrap: wrap; }
 .payerBtn {
@@ -35,12 +35,12 @@
   cursor: pointer;
   color: #555;
 }
-.payerBtnActive { border-color: #2E7D32; background: #2E7D32; color: white; }
+.payerBtnActive { border-color: #D95F6B; background: #D95F6B; color: white; }
 
 .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .summaryCard { background: white; border-radius: 10px; padding: 12px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 .summaryLabel { font-size: 11px; color: #888; margin: 0 0 4px; }
-.summaryAmount { font-size: 15px; font-weight: 700; color: #2E7D32; margin: 0; }
+.summaryAmount { font-size: 15px; font-weight: 700; color: #D95F6B; margin: 0; }
 
 .empty { text-align: center; color: #bbb; padding: 60px 0; background: white; border-radius: 12px; }
 

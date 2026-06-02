@@ -5,7 +5,7 @@
 }
 
 .header {
-  background: #2E7D32;
+  background: #D95F6B;
   color: white;
   padding: 24px 20px 20px;
   text-align: center;
@@ -49,8 +49,8 @@
 }
 
 .tabActive {
-  color: #2E7D32;
-  border-bottom: 3px solid #2E7D32;
+  color: #D95F6B;
+  border-bottom: 3px solid #D95F6B;
   margin-bottom: -2px;
   font-weight: 700;
 }

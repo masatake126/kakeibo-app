@@ -1,13 +1,13 @@
 .form { display: flex; flex-direction: column; gap: 20px; }
 
-.receiptSection { background: #E8F5E9; border: 2px dashed #81C784; border-radius: 12px; padding: 20px; text-align: center; }
-.receiptLabel { font-size: 13px; color: #388E3C; margin: 0 0 12px; font-weight: 600; }
-.cameraButton { background: #2E7D32; color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 15px; cursor: pointer; width: 100%; font-weight: 600; }
+.receiptSection { background: #FFF0F0; border: 2px dashed #F0A0A5; border-radius: 12px; padding: 20px; text-align: center; }
+.receiptLabel { font-size: 13px; color: #D95F6B; margin: 0 0 12px; font-weight: 600; }
+.cameraButton { background: #D95F6B; color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 15px; cursor: pointer; width: 100%; font-weight: 600; }
 .cameraButton:disabled { opacity: 0.6; }
 
 .message { padding: 12px 16px; border-radius: 8px; font-size: 14px; }
 .info { background: #E3F2FD; color: #1565C0; }
-.success { background: #E8F5E9; color: #2E7D32; }
+.success { background: #FFF0F0; color: #D95F6B; }
 .error { background: #FFEBEE; color: #C62828; }
 
 .divider { text-align: center; font-size: 12px; color: #999; position: relative; }
@@ -21,7 +21,7 @@
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { padding: 8px 16px; border: 2px solid #e0e0e0; border-radius: 20px; background: white; font-size: 14px; cursor: pointer; transition: all 0.15s; color: #555; }
-.chipActive { border-color: #2E7D32; background: #2E7D32; color: white; }
+.chipActive { border-color: #D95F6B; background: #D95F6B; color: white; }
 
 .input {
   padding: 12px 16px;
@@ -37,7 +37,7 @@
   background: white;
   color: #333;
 }
-.input:focus { border-color: #2E7D32; }
+.input:focus { border-color: #D95F6B; }
 
 input[type="date"].input { font-size: 15px; padding: 12px 12px; }
 
@@ -54,7 +54,7 @@ input[type="date"].input { font-size: 15px; padding: 12px 12px; }
   color: #333;
   transition: border-color 0.15s;
 }
-.textarea:focus { border-color: #2E7D32; }
+.textarea:focus { border-color: #D95F6B; }
 
 .recurringToggle {
   display: flex;
@@ -69,12 +69,12 @@ input[type="date"].input { font-size: 15px; padding: 12px 12px; }
   text-align: left;
   transition: all 0.15s;
 }
-.recurringActive { border-color: #2E7D32; background: #E8F5E9; }
+.recurringActive { border-color: #D95F6B; background: #FFF0F0; }
 .recurringIcon { font-size: 20px; flex-shrink: 0; }
 .recurringText { display: flex; flex-direction: column; gap: 2px; flex: 1; }
 .recurringLabel { font-size: 14px; font-weight: 600; color: #333; }
 .recurringDesc { font-size: 12px; color: #999; }
-.recurringCheck { font-size: 13px; font-weight: 700; color: #2E7D32; flex-shrink: 0; }
+.recurringCheck { font-size: 13px; font-weight: 700; color: #D95F6B; flex-shrink: 0; }
 
-.submitButton { background: #2E7D32; color: white; border: none; border-radius: 10px; padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; width: 100%; }
+.submitButton { background: #D95F6B; color: white; border: none; border-radius: 10px; padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; width: 100%; }
 .submitButton:disabled { opacity: 0.6; }
