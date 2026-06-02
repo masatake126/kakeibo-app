@@ -115,10 +115,19 @@
   box-sizing: border-box;
   outline: none;
   transition: border-color 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+  background: white;
 }
 
 .input:focus {
   border-color: #2E7D32;
+}
+
+input[type="date"].input {
+  font-size: 15px;
+  padding: 12px 12px;
+  color: #333;
 }
 
 .submitButton {
@@ -131,6 +140,7 @@
   font-weight: 700;
   cursor: pointer;
   margin-top: 8px;
+  width: 100%;
 }
 
 .submitButton:disabled {
