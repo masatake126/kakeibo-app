@@ -1,13 +1,67 @@
 .form { display: flex; flex-direction: column; gap: 20px; }
 
-.receiptSection { background: #FFF0F0; border: 2px dashed #F0A0A5; border-radius: 12px; padding: 20px; text-align: center; }
-.receiptLabel { font-size: 13px; color: #D95F6B; margin: 0 0 12px; font-weight: 600; }
-.cameraButton { background: #D95F6B; color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 15px; cursor: pointer; width: 100%; font-weight: 600; }
-.cameraButton:disabled { opacity: 0.6; }
+.receiptSection {
+  background: #FFF0F0;
+  border: 2px dashed #F0A0A5;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.receiptWarn {
+  background: #FFF8E1;
+  border-color: #FFB300;
+}
+.receiptBlocked {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.receiptHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.receiptLabel { font-size: 13px; color: #D95F6B; font-weight: 600; margin: 0; }
+.usageCount { font-size: 12px; color: #999; font-weight: 600; }
+
+.usageBar {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.usageFill {
+  height: 100%;
+  background: #D95F6B;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.usageFillWarn { background: #FFB300; }
+.usageFillBlock { background: #ccc; }
+
+.warnText { font-size: 12px; color: #F57F17; margin: 0; font-weight: 600; }
+.blockText { font-size: 12px; color: #999; margin: 0; font-weight: 600; }
+
+.cameraButton {
+  background: #D95F6B;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+}
+.cameraButton:disabled { opacity: 0.6; cursor: default; }
+.cameraButtonDisabled { background: #ccc !important; }
 
 .message { padding: 12px 16px; border-radius: 8px; font-size: 14px; }
 .info { background: #E3F2FD; color: #1565C0; }
 .success { background: #FFF0F0; color: #D95F6B; }
+.warn { background: #FFF8E1; color: #F57F17; }
 .error { background: #FFEBEE; color: #C62828; }
 
 .divider { text-align: center; font-size: 12px; color: #999; position: relative; }
@@ -38,7 +92,6 @@
   color: #333;
 }
 .input:focus { border-color: #D95F6B; }
-
 input[type="date"].input { font-size: 15px; padding: 12px 12px; }
 
 .textarea {
@@ -56,19 +109,7 @@ input[type="date"].input { font-size: 15px; padding: 12px 12px; }
 }
 .textarea:focus { border-color: #D95F6B; }
 
-.recurringToggle {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  background: white;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  transition: all 0.15s;
-}
+.recurringToggle { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid #e0e0e0; border-radius: 12px; background: white; cursor: pointer; width: 100%; text-align: left; transition: all 0.15s; }
 .recurringActive { border-color: #D95F6B; background: #FFF0F0; }
 .recurringIcon { font-size: 20px; flex-shrink: 0; }
 .recurringText { display: flex; flex-direction: column; gap: 2px; flex: 1; }
